@@ -34,7 +34,7 @@ function Header() {
         return(
             <>
                 <li><Link to="/history">History</Link></li>
-                <li><Link to="/" onClick={logoutUser}>Logout</Link></li>
+                <li><Link to="/" onClick={logoutUser}>Sign-Out</Link></li>
             </>
         )
     }
@@ -62,7 +62,7 @@ function Header() {
                 {isAdmin && adminRouter()}
 
                 {
-                    isLogged ? loggedRouter() : <li><Link to="/login">Login ✥ Register</Link></li>
+                    isLogged ? loggedRouter() : <li><Link to="/login">Sign-In ✥ Sign-Up</Link></li>
                 }
 
                 <li onClick={() => setMenu(!menu)}>
