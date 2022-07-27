@@ -1,7 +1,7 @@
 # MERN Stack - Ecommerce
 > Ecommerce website built with the MERN stack with React Context API for state management, pure CSS for style
 
-## Author: Robin Mishra
+## Author: Robin Mishra (mern estore)
 
 ## Install dependencies for server 
 ### `npm install`
