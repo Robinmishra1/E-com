@@ -1,10 +1,11 @@
 require('dotenv').config()
 const express = require('express')
-const mongoose = require('mongoose')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const cookieParser = require('cookie-parser')
 const path = require('path')
+const mongoose = require('mongoose');
+const URI = process.env.MONGODB_URL;
 
 
 const app = express()
@@ -25,16 +26,17 @@ app.use('/api', require('./routes/paymentRouter'))
 
 
 // Connect to mongodb
-const URI = process.env.MONGODB_URL
+
+
+// Connect to MongoDB using promises
 mongoose.connect(URI, {
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, err =>{
-    if(err) throw err;
-    console.log('Connected to MongoDB')
 })
+.then(() => {
+    console.log('Connected to MongoDB');
+})
+.catch((err) => {
+    console.error('Error connecting to MongoDB:', err);
+});
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
