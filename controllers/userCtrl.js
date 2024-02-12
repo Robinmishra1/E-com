@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 
+
 const userCtrl = {
   register: async (req, res) => {
     try {
@@ -51,22 +52,16 @@ const userCtrl = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
-
-      console.log(req.body, "--");
-
       const user = await Users.findOne({ email });
       if (!user) return res.status(400).json({ msg: "User does not exist." });
-      console.log(user, "1111111111");
 
       const isMatch = await bcrypt.compare(password, user.password);
-      console.log(isMatch, "2222222");
       if (!isMatch) return res.status(400).json({ msg: "Incorrect password." });
 
       // If login success , create access token and refresh token
       const accesstoken = createAccessToken({ id: user._id });
       const refreshtoken = createRefreshToken({ id: user._id });
 
-      console.log(accesstoken, "---------");
       res.cookie("refreshtoken", refreshtoken, {
         httpOnly: true,
         path: "/user/refresh_token",
